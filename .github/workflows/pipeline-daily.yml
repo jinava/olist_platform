@@ -30,8 +30,8 @@ name: Daily Pipeline — Full Olist ELT
 
 on:
   schedule:
-    - cron: "0 18 * * *"   # 02:00 SGT (18:00 UTC) — full pipeline including ingest
-    - cron: "0 22 * * *"   # 06:00 SGT (22:00 UTC) — dbt-only fallback/refresh
+    - cron: "0 18 1 * *"   # 02:00 SGT (18:00 UTC) — full pipeline including ingest
+    - cron: "0 22 1 * *"   # 06:00 SGT (22:00 UTC) — dbt-only fallback/refresh
   workflow_dispatch:
     inputs:
       full_pipeline:
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     if: |
-      (github.event_name == 'schedule' && github.event.schedule == '0 18 * * *') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 18 1 * *') ||
       (github.event_name == 'workflow_dispatch' && inputs.full_pipeline == true)
 
     steps:
